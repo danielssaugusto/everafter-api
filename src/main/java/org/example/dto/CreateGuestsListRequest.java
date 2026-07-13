@@ -11,4 +11,12 @@ public class CreateGuestsListRequest {
 
     private String listName;
     private List<Long> idsGuests;
+
+    public String getListName() {
+        return listName;
+    }
+
+    public List<Long> getIdsGuests() {
+        return idsGuests;
+    }
 }
