@@ -13,13 +13,16 @@ import java.util.List;
 @Service
 public class AdminService {
 
-    @Autowired
-    private GuestsListRepository guestsListRepository;
+    private final GuestsListRepository guestsListRepository;
+    private final GuestRepository guestRepository;
 
-    @Autowired
-    private GuestRepository guestRepository;
+    public AdminService(
+            GuestsListRepository guestsListRepository,
+            GuestRepository guestRepository) {
 
-
+        this.guestsListRepository = guestsListRepository;
+        this.guestRepository = guestRepository;
+    }
 
     public GuestsList createList(String listName, List<Long> idsGuests) {
         GuestsList list = new GuestsList();

@@ -8,16 +8,17 @@ import org.hibernate.annotations.AnyDiscriminatorImplicitValues;
 import java.util.ArrayList;
 import java.util.List;
 
-@Setter
-@Getter
 @Entity
+@Getter
+@Setter
 public class GuestsList {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String listName;
 
     @ManyToMany
-    private List<Guest> guests;
-
+    private List<Guest> guests = new ArrayList<>();
 }
