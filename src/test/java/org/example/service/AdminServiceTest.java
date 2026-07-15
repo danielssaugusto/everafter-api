@@ -119,12 +119,14 @@ class AdminServiceTest {
         when(adminRepository.findById(id))
                 .thenReturn(Optional.of(admin));
 
+        // ACT
         IllegalArgumentException exception =
                 assertThrows(
                         IllegalArgumentException.class,
                         () -> adminService.updateAdminPassword(id, newPassword)
                 );
 
+        // ASSERT
         assertEquals("Your password must contain at least 6 characters.", exception.getMessage());
 
         verify(adminRepository).findById(id);
@@ -132,13 +134,22 @@ class AdminServiceTest {
     }
 
     @Test
-    void unitTestName() {
+    void should_update_to_new_email_when_admin_exist() {
         // ARRANGE
+        Long id = 2L;
+        Admin admin = new Admin(id, "Admin", "admin@email.com", "Abc123@");
+        String newEmail = "admin_jhon2@email.com";
+
+        when(adminRepository.findById(admin.getId()))
+                .thenReturn(Optional.of(admin));
+        when(adminRepository.save(admin))
+                .thenReturn(admin);
 
         // ACT
+        Admin result = adminService.updateAdminEmail(id, newEmail);
 
         // ASSERT
+        assertEquals(admin.getEmail(), result.getEmail());
 
-        // CLEANUP (se necessário)
     }
 }
