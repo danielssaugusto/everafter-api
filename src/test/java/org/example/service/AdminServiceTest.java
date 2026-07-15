@@ -130,4 +130,15 @@ class AdminServiceTest {
         verify(adminRepository).findById(id);
         verify(adminRepository, never()).save(any(Admin.class));
     }
+
+    @Test
+    void unitTestName() {
+        // ARRANGE
+
+        // ACT
+
+        // ASSERT
+
+        // CLEANUP (se necessário)
+    }
 }

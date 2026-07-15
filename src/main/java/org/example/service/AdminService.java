@@ -34,8 +34,14 @@ public class AdminService {
         return adminRepository.save(admin);
     }
 
-    public Admin updateAdminEmail(String newEmail) {
-        Admin admin = adminRepository.findByEmail(newEmail);
+    public Admin updateAdminEmail(Long id, String newEmail) {
+        Admin admin = adminRepository.findById(id)
+                        .orElseThrow(() -> new IllegalArgumentException("Administrator not found!"));
+
+        if (newEmail == null) {
+            throw new IllegalArgumentException("Your email not be null.");
+        }
+
         admin.setEmail(newEmail);
         return adminRepository.save(admin);
     }
