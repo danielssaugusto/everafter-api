@@ -12,6 +12,10 @@ import lombok.ToString;
 @DiscriminatorValue("ADMIN")
 public class Admin extends User {
 
+    public Admin() {
+        super();
+    }
+
     public Admin(Long id, String fullName, String email, String password) {
         super(id, fullName, email, password);
     }

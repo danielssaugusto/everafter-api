@@ -1,5 +1,7 @@
 package org.example.service;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import org.example.model.Admin;
 import org.example.repository.AdminRepository;
 
@@ -13,29 +15,40 @@ public class AdminService {
         this.adminRepository = adminRepository;
     }
 
-    public Admin createAdmin(Admin admin) {
+    public Admin createAdminAccount(Admin admin) {
         if (adminRepository.existsByEmail(admin.getEmail())) {
             throw new IllegalArgumentException("Administrador email's already exists!");
         }
         return adminRepository.save(admin);
     }
 
-    public Admin updatePassword(Long id, String newPassword) {
+    public Admin updateAdminPassword(Long id, String newPassword) {
         Admin admin = adminRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Administrator not found!"));
 
         if (newPassword == null || newPassword.trim().length() < 6) {
-            throw new IllegalArgumentException("Your password needs 6 or more characteres.");
+            throw new IllegalArgumentException("Your password must contain at least 6 characters.");
         }
 
         admin.setPassword(newPassword);
         return adminRepository.save(admin);
     }
 
-    public Admin updateEmail(String newEmail) {
+    public Admin updateAdminEmail(String newEmail) {
         Admin admin = adminRepository.findByEmail(newEmail);
         admin.setEmail(newEmail);
         return adminRepository.save(admin);
+    }
+
+    public
+    @NotBlank(message = "Email is required")
+    @Email(message = "Invalid email format")
+    String findByEmail(String email) {
+        Admin admin = adminRepository.findByEmail(email);
+        if (admin != null) {
+            return admin.getEmail();
+        }
+        return null;
     }
 
     public List<Admin> findAll() {
