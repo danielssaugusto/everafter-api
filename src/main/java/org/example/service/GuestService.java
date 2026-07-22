@@ -14,4 +14,12 @@ public class GuestService {
     public void confirmPresence(Guest guest) {
 
     }
+<<<<<<< HEAD
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 1c534ed (Aplicando conhecimento de Enum em Java)
+=======
+}
+>>>>>>> f937e61 (UPDATE)
