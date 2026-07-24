@@ -11,17 +11,20 @@ import lombok.ToString;
 @Entity
 @DiscriminatorValue("ADMIN")
 public class Admin extends User {
+    private Role role;
 
     public Admin() {
-        super();
     }
 
     public Admin(Long id, String fullName, String email, String password) {
         super(id, fullName, email, password);
     }
 
-    @Override
     public Role getRole() {
-        return Role.ADMIN;
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }
