@@ -79,14 +79,14 @@ class AdminServiceTest {
         // ARRANGE
         String newPassword = "123@Abc";
 
-        when(adminRepository.findById(id))
+        when(adminRepository.findById(admin.getId()))
                 .thenReturn(Optional.of(admin));
 
         when(adminRepository.save(admin))
                 .thenReturn(admin);
 
         // ACT
-        Admin result = adminService.updateAdminPassword(id, newPassword);
+        Admin result = adminService.updateAdminPassword(admin.getId(), newPassword);
 
         // ASSERT
         Assertions.assertEquals(admin.getPassword(), result.getPassword());
