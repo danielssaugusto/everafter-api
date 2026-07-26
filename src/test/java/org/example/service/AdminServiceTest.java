@@ -3,6 +3,7 @@ package org.example.service;
 import org.example.model.Admin;
 import org.example.repository.AdminRepository;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -24,12 +25,19 @@ class AdminServiceTest {
     @InjectMocks
     private AdminService adminService;
 
+    private Admin admin;
+
+    @BeforeEach
+    void setup() {
+        Long id = 1L;
+        admin = new Admin(id, "Admin", "admin@email.com", "Abc123@");
+    }
+
     @Test
     void should_create_admin_when_email_does_not_exist() {
-
         // Arrange
         Admin admin = new Admin();
-        admin.setEmail("john@email.com");
+        admin.setEmail(admin.getEmail());
 
         when(adminRepository.existsByEmail(admin.getEmail()))
                 .thenReturn(false);
@@ -69,8 +77,6 @@ class AdminServiceTest {
     @Test
     void should_update_admin_password_when_admin_already_exists() {
         // ARRANGE
-        Long id = 1L;
-        Admin admin = new Admin(id, "Admin", "admin@email.com", "Abc123@");
         String newPassword = "123@Abc";
 
         when(adminRepository.findById(id))
