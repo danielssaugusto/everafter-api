@@ -11,7 +11,7 @@ import lombok.ToString;
 @Entity
 @DiscriminatorValue("ADMIN")
 public class Admin extends User {
-    private Role role;
+    private Role role = Role.ADMIN;
 
     public Admin() {
     }
