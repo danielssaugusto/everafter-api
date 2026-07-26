@@ -36,9 +36,6 @@ class AdminServiceTest {
     @Test
     void should_create_admin_when_email_does_not_exist() {
         // Arrange
-        Admin admin = new Admin();
-        admin.setEmail(admin.getEmail());
-
         when(adminRepository.existsByEmail(admin.getEmail()))
                 .thenReturn(false);
 
@@ -55,7 +52,6 @@ class AdminServiceTest {
     @Test
     void should_throw_exception_when_email_already_exists() {
         // ARRANGE
-        Admin admin = new Admin();
         admin.setEmail("jhon@email.com");
 
         when(adminRepository.existsByEmail(admin.getEmail()))
@@ -68,7 +64,7 @@ class AdminServiceTest {
                         () -> adminService.createAdminAccount(admin)
                 );
 
-        assertEquals("Administrator email already exists!",
+        assertEquals("Administrador email's already exists!",
                 exception.getMessage());
 
         verify(adminRepository, never()).save(any(Admin.class));
@@ -86,16 +82,21 @@ class AdminServiceTest {
                 .thenReturn(admin);
 
         // ACT
-        Admin result = adminService.updateAdminPassword(admin.getId(), newPassword);
+        Admin result = adminService.updateAdminPassword(
+                admin.getId(),
+                newPassword);
 
         // ASSERT
-        Assertions.assertEquals(admin.getPassword(), result.getPassword());
+        assertEquals(admin.getPassword(), result.getPassword());
+
+        verify(adminRepository).findById(admin.getId());
+        verify(adminRepository).save(admin);
     }
 
     @Test
     void should_not_update_admin_password_when_admin_not_exists() {
         // ARRANGE
-        Long id = 1L;
+        Long id = admin.getId();
         String newPassword = "Abc@123";
 
         when(adminRepository.findById(id))
@@ -109,7 +110,7 @@ class AdminServiceTest {
                 );
 
         // ASSERT
-        assertEquals("Administrator not found.", exception.getMessage());
+        assertEquals("Administrator not found!", exception.getMessage());
 
         verify(adminRepository).findById(id);
         verify(adminRepository, never()).save(any(Admin.class));
