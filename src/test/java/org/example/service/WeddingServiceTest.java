@@ -1,7 +1,7 @@
 package org.example.service;
 
-import org.example.model.Admin;
-import org.example.repository.AdminRepository;
+import org.example.model.Wedding;
+import org.example.repository.WeddingRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,33 +17,33 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class AdminServiceTest {
+class WeddingServiceTest {
 
     @Mock
-    private AdminRepository adminRepository;
+    private WeddingRepository weddingRepository;
 
     @InjectMocks
-    private AdminService adminService;
+    private WeddingService weddingService;
 
-    private Admin admin;
+    private Wedding admin;
 
     @BeforeEach
     void setup() {
         Long id = 1L;
-        admin = new Admin(id, "Admin", "admin@email.com", "Abc123@");
+        admin = new Wedding(id, "Admin", "admin@email.com", "Abc123@");
     }
 
     @Test
     void should_create_admin_when_email_does_not_exist() {
         // Arrange
-        when(adminRepository.existsByEmail(admin.getEmail()))
+        when(weddingRepository.existsByEmail(admin.getEmail()))
                 .thenReturn(false);
 
-        when(adminRepository.save(admin))
+        when(weddingRepository.save(admin))
                 .thenReturn(admin);
 
         // Act
-        Admin result = adminService.createAdminAccount(admin);
+        Wedding result = weddingService.createAdminAccount(admin);
 
         // Assert
         Assertions.assertEquals(admin.getEmail(), result.getEmail());
@@ -54,20 +54,20 @@ class AdminServiceTest {
         // ARRANGE
         admin.setEmail("jhon@email.com");
 
-        when(adminRepository.existsByEmail(admin.getEmail()))
+        when(weddingRepository.existsByEmail(admin.getEmail()))
                 .thenReturn(true);
 
         // ACT + ASSERT
         IllegalArgumentException exception =
                 assertThrows(
                         IllegalArgumentException.class,
-                        () -> adminService.createAdminAccount(admin)
+                        () -> weddingService.createAdminAccount(admin)
                 );
 
         assertEquals("Administrador email's already exists!",
                 exception.getMessage());
 
-        verify(adminRepository, never()).save(any(Admin.class));
+        verify(weddingRepository, never()).save(any(Wedding.class));
     }
 
     @Test
@@ -75,22 +75,22 @@ class AdminServiceTest {
         // ARRANGE
         String newPassword = "123@Abc";
 
-        when(adminRepository.findById(admin.getId()))
+        when(weddingRepository.findById(admin.getId()))
                 .thenReturn(Optional.of(admin));
 
-        when(adminRepository.save(admin))
+        when(weddingRepository.save(admin))
                 .thenReturn(admin);
 
         // ACT
-        Admin result = adminService.updateAdminPassword(
+        Wedding result = weddingService.updateAdminPassword(
                 admin.getId(),
                 newPassword);
 
         // ASSERT
         assertEquals(admin.getPassword(), result.getPassword());
 
-        verify(adminRepository).findById(admin.getId());
-        verify(adminRepository).save(admin);
+        verify(weddingRepository).findById(admin.getId());
+        verify(weddingRepository).save(admin);
     }
 
     @Test
@@ -99,21 +99,21 @@ class AdminServiceTest {
         Long id = admin.getId();
         String newPassword = "Abc@123";
 
-        when(adminRepository.findById(id))
+        when(weddingRepository.findById(id))
                 .thenReturn(Optional.empty());
 
         // ACT
         IllegalArgumentException exception =
                 assertThrows(
                         IllegalArgumentException.class,
-                        () -> adminService.updateAdminPassword(id, newPassword)
+                        () -> weddingService.updateAdminPassword(id, newPassword)
                 );
 
         // ASSERT
         assertEquals("Administrator not found!", exception.getMessage());
 
-        verify(adminRepository).findById(id);
-        verify(adminRepository, never()).save(any(Admin.class));
+        verify(weddingRepository).findById(id);
+        verify(weddingRepository, never()).save(any(Wedding.class));
     }
 
     @Test
@@ -121,39 +121,39 @@ class AdminServiceTest {
 
         long id = 2L;
         String newPassword = "123";
-        Admin admin = new Admin(id, "Admin", "admin@email.com", "Abc123@");
+        Wedding admin = new Wedding(id, "Admin", "admin@email.com", "Abc123@");
 
-        when(adminRepository.findById(id))
+        when(weddingRepository.findById(id))
                 .thenReturn(Optional.of(admin));
 
         // ACT
         IllegalArgumentException exception =
                 assertThrows(
                         IllegalArgumentException.class,
-                        () -> adminService.updateAdminPassword(id, newPassword)
+                        () -> weddingService.updateAdminPassword(id, newPassword)
                 );
 
         // ASSERT
         assertEquals("Your password must contain at least 6 characters.", exception.getMessage());
 
-        verify(adminRepository).findById(id);
-        verify(adminRepository, never()).save(any(Admin.class));
+        verify(weddingRepository).findById(id);
+        verify(weddingRepository, never()).save(any(Wedding.class));
     }
 
     @Test
     void should_update_to_new_email_when_admin_exist() {
         // ARRANGE
         Long id = 2L;
-        Admin admin = new Admin(id, "Admin", "admin@email.com", "Abc123@");
+        Wedding admin = new Wedding(id, "Admin", "admin@email.com", "Abc123@");
         String newEmail = "admin_jhon2@email.com";
 
-        when(adminRepository.findById(admin.getId()))
+        when(weddingRepository.findById(admin.getId()))
                 .thenReturn(Optional.of(admin));
-        when(adminRepository.save(admin))
+        when(weddingRepository.save(admin))
                 .thenReturn(admin);
 
         // ACT
-        Admin result = adminService.updateAdminEmail(id, newEmail);
+        Wedding result = weddingService.updateAdminEmail(id, newEmail);
 
         // ASSERT
         assertEquals(admin.getEmail(), result.getEmail());

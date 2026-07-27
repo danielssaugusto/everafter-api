@@ -1,4 +1,4 @@
-package org.example.model;
+package org.example.enums;
 
 public enum RSVPStatus {
     ATTENDING(1, "Guest confirmed"),

@@ -5,13 +5,15 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
+import org.example.enums.RSVPStatus;
+import org.example.enums.Role;
 
 
 @Entity
 @Setter
 @Getter
 @Table(name = "users")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE) // ou JOINED
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "role", discriminatorType = DiscriminatorType.STRING)
 public abstract class User {
     @Id

@@ -1,11 +1,11 @@
 package org.example.repository;
 
-import org.example.model.Admin;
+import org.example.model.Wedding;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AdminRepository extends JpaRepository<Admin, Long> {
+public interface WeddingRepository extends JpaRepository<Wedding, Long> {
     boolean existsByEmail(String email);
-    Admin findByEmail(String email);
+    Wedding findByEmail(String email);
 }

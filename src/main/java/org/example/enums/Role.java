@@ -1,12 +1,13 @@
-package org.example.model;
+package org.example.enums;
 
 import lombok.Getter;
 
 @Getter
 public enum Role {
-    ADMIN(1, "Noivo(a)"),
-    PROFESSIONAL(2, "Cerimonialista"),
-    GUEST(3, "Convidado(a)");
+    GROOM(1, "Groom"),
+    BRIDE(2, "Bride"),
+    PROFESSIONAL(3, "Cerimonialista"),
+    GUEST(4, "Convidado(a)");
 
     final private int code;
     final private String description;
