@@ -1,15 +1,20 @@
 package br.com.danielssaugusto.entity;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
-import org.springframework.data.annotation.Id;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 
 import java.util.UUID;
 
+@Entity
 public class Couple {
     @Id
     @GeneratedValue
     private UUID id;
+    @OneToOne
     private CoupleMember groom;
+    @OneToOne
     private CoupleMember bride;
 
     protected Couple() {}
