@@ -10,10 +10,17 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User createNewUser(User user) {
+    public User singUpNewUser(User user) {
         if (userRepository.existsByEmail(user.getEmail())) {
             throw new IllegalArgumentException("User already exists.");
         }
         return userRepository.save(user);
+    }
+
+    public User singIn(User user) {
+        if (!userRepository.existsByEmail(user.getEmail())) {
+            throw new IllegalArgumentException("User not found.");
+        }
+        return user;
     }
 }
