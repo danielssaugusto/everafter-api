@@ -1,9 +1,9 @@
 package org.example.model;
 
 import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
 import lombok.Getter;
 import lombok.Setter;
+import org.example.enums.Role;
 
 @Setter
 @Getter
