@@ -18,6 +18,7 @@ import lombok.Setter;
 public class Guest {
     @Enumerated(EnumType.STRING)
     private RSVPStatus status = RSVPStatus.PENDING;
+    private Role role = Role.GUEST;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
