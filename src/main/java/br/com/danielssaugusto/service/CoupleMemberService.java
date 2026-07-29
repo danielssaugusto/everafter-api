@@ -1,7 +1,10 @@
 package br.com.danielssaugusto.service;
 
+import br.com.danielssaugusto.entity.CoupleInvitation;
 import br.com.danielssaugusto.entity.CoupleMember;
 import br.com.danielssaugusto.entity.User;
+import br.com.danielssaugusto.enums.InvitationPartnerStatus;
+import br.com.danielssaugusto.repository.CoupleInvitationRepository;
 import br.com.danielssaugusto.repository.CoupleMemberRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,8 +14,8 @@ import java.util.UUID;
 
 @Service
 public class CoupleMemberService {
-    CoupleMemberRepository coupleMemberRepository;
     CoupleMember coupleMember;
+    CoupleMemberRepository coupleMemberRepository;
 
     @Transactional
     public CoupleMember signUpNewCoupleMember(CoupleMember coupleMember) {
