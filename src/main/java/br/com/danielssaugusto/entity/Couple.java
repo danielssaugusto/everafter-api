@@ -21,8 +21,6 @@ public class Couple {
     @OneToOne
     private CoupleMember bride;
 
-    protected Couple() {}
-
     public Couple(CoupleMember groom, CoupleMember bride) {
         this.groom = groom;
         this.bride = bride;
