@@ -5,33 +5,22 @@ import br.com.danielssaugusto.entity.CoupleMember;
 import br.com.danielssaugusto.repository.CoupleMemberRepository;
 import br.com.danielssaugusto.repository.CoupleRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
 @Service
 public class CoupleService {
-    private final CoupleMemberRepository coupleMemberRepository;
     private final CoupleRepository coupleRepository;
+    private final CoupleMemberRepository coupleMemberRepository;
 
-    public CoupleService(CoupleMemberRepository coupleMemberRepository, CoupleRepository coupleRepository) {
-        this.coupleMemberRepository = coupleMemberRepository;
+
+    public CoupleService(CoupleRepository coupleRepository, CoupleMemberRepository coupleMemberRepository) {
         this.coupleRepository = coupleRepository;
+        this.coupleMemberRepository = coupleMemberRepository;
     }
 
     public Couple createCouple(CoupleMember groom, CoupleMember bride) {
         Couple couple = new Couple(groom, bride);
         return coupleRepository.save(couple);
     }
-
-    @Transactional
-    public CoupleMember updateCoupleMemberEmail(UUID id, String email) {
-        CoupleMember coupleMember = coupleMemberRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Couple member not found."));
-
-        coupleMember.setEmail(email);
-
-        return coupleMember;
-    }
-
 }
