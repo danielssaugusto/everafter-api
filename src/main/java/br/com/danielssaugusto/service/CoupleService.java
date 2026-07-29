@@ -2,14 +2,20 @@ package br.com.danielssaugusto.service;
 
 import br.com.danielssaugusto.entity.Couple;
 import br.com.danielssaugusto.entity.CoupleMember;
+import br.com.danielssaugusto.repository.CoupleMemberRepository;
 import br.com.danielssaugusto.repository.CoupleRepository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import static jakarta.persistence.GenerationType.UUID;
+import java.util.UUID;
 
+@Service
 public class CoupleService {
+    private final CoupleMemberRepository coupleMemberRepository;
     private final CoupleRepository coupleRepository;
 
-    public CoupleService(CoupleRepository coupleRepository) {
+    public CoupleService(CoupleMemberRepository coupleMemberRepository, CoupleRepository coupleRepository) {
+        this.coupleMemberRepository = coupleMemberRepository;
         this.coupleRepository = coupleRepository;
     }
 
@@ -17,4 +23,15 @@ public class CoupleService {
         Couple couple = new Couple(groom, bride);
         return coupleRepository.save(couple);
     }
+
+    @Transactional
+    public CoupleMember updateEmail(UUID id, String email) {
+        CoupleMember coupleMember = coupleMemberRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found."));
+
+        coupleMember.setEmail(email);
+
+        return coupleMember;
+    }
+
 }
