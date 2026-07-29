@@ -25,9 +25,9 @@ public class CoupleService {
     }
 
     @Transactional
-    public CoupleMember updateEmail(UUID id, String email) {
+    public CoupleMember updateCoupleMemberEmail(UUID id, String email) {
         CoupleMember coupleMember = coupleMemberRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found."));
+                .orElseThrow(() -> new IllegalArgumentException("Couple member not found."));
 
         coupleMember.setEmail(email);
 
