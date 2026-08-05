@@ -19,7 +19,7 @@ public class CoupleMemberService {
 
     private final List<CoupleMember> dbCoupleMember = new ArrayList<>();
 
-    private CoupleMemberService() {
+    public CoupleMemberService() {
         dbCoupleMember.add(new CoupleMember("Jhon Doe", "jhondoe@email.com", "Abc12345@"));
     }
 
