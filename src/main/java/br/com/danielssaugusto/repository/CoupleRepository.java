@@ -9,6 +9,6 @@ import java.util.UUID;
 
 @Repository
 public interface CoupleRepository extends JpaRepository<Couple, UUID> {
-    boolean existsByEmail(String email);
+    boolean existsByGroomEmail(String email);
 
 }
