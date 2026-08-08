@@ -23,12 +23,12 @@ public class CoupleMemberRestController {
     }
 
     @GetMapping
-    public List<CoupleMemberResponseDTO> listar() {
+    public List<CoupleMemberResponseDTO> lists() {
         return coupleMemberRepository.findAll().stream().map(CoupleMemberResponseDTO::new).collect(Collectors.toList());
     }
 
-    @PostMapping("/protect")
-    public ResponseEntity<CoupleMemberResponseDTO> createWitchProtect(@RequestBody CoupleMemberRequestDTO dto) {
+    @PostMapping("/create")
+    public ResponseEntity<CoupleMemberResponseDTO> createMember(@RequestBody CoupleMemberRequestDTO dto) {
         CoupleMember newMember = new CoupleMember(
                 dto.getName(),
                 dto.getEmail(),
@@ -37,4 +37,6 @@ public class CoupleMemberRestController {
         CoupleMember saved = coupleMemberRepository.save(newMember);
         return ResponseEntity.status(HttpStatus.CREATED).body(new CoupleMemberResponseDTO(saved));
     }
+
+
 }

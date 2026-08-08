@@ -8,6 +8,8 @@ EverAfter API provides backend functionality for managing wedding events, guests
 
 The project follows a layered architecture designed to keep responsibilities separated and make the application easier to maintain, test, and extend.
 
+The application uses **Docker Compose to run PostgreSQL**, while the **Spring Boot application runs directly on the host machine**.
+
 ## Features
 
 - Administrator management and authentication
@@ -18,35 +20,41 @@ The project follows a layered architecture designed to keep responsibilities sep
 - Centralized exception handling
 - Data persistence with Spring Data JPA
 - Unit testing with JUnit 5 and Mockito
-- Support for H2 and MySQL databases, depending on the configuration
+- PostgreSQL database running with Docker Compose
 
 ## Technology Stack
 
-| Technology | Purpose |
-|---|---|
-| Java | Backend development |
-| Spring Boot | Application framework |
-| Spring Data JPA | Data persistence and ORM |
-| Maven | Dependency and build management |
-| H2 Database | Development and testing database |
-| MySQL | Relational database |
-| JUnit 5 | Unit testing |
-| Mockito | Mocking and test isolation |
-| Lombok | Boilerplate code reduction |
+| Technology      | Purpose                         |
+| --------------- | ------------------------------- |
+| Java            | Backend development             |
+| Spring Boot     | Application framework           |
+| Spring Data JPA | Data persistence and ORM        |
+| Maven           | Dependency and build management |
+| PostgreSQL      | Relational database             |
+| Docker          | Containerization                |
+| Docker Compose  | Local database infrastructure   |
+| JUnit 5         | Unit testing                    |
+| Mockito         | Mocking and test isolation      |
+| Lombok          | Boilerplate code reduction      |
 
 ## Project Structure
 
-    src
-    ├── main
-    │   ├── controller
-    │   ├── service
-    │   ├── repository
-    │   ├── model
-    │   ├── dto
-    │   ├── exception
-    │   └── config
-    └── test
-        └── service
+    everafter-api/
+    ├── .mvn/
+    │   └── wrapper/
+    ├── src/
+    │   ├── main/
+    │   │   ├── java/
+    │   │   └── resources/
+    │   └── test/
+    │       └── java/
+    ├── .env.example
+    ├── .gitignore
+    ├── compose.yml
+    ├── mvnw
+    ├── mvnw.cmd
+    ├── pom.xml
+    └── README.md
 
 ## Architecture
 
@@ -70,12 +78,16 @@ Before running the project, make sure you have installed:
 
 - Java JDK
 - Maven
+- Docker
+- Docker Compose
 - Git
 
-You can verify the installed versions with:
+You can verify the installations with:
 
     java -version
     mvn -version
+    docker --version
+    docker compose version
     git --version
 
 ### Clone the Repository
@@ -86,7 +98,66 @@ Navigate to the project directory:
 
     cd everafter-api
 
-### Running the Application
+## Database
+
+The application uses **PostgreSQL** as its relational database.
+
+PostgreSQL runs inside a Docker container, while the Spring Boot application runs directly on the host machine.
+
+### Start the Database
+
+Start the PostgreSQL container using Docker Compose:
+
+    docker compose up -d
+
+Check whether the container is running:
+
+    docker compose ps
+
+To view the PostgreSQL logs:
+
+    docker compose logs -f postgres
+
+### Stop the Database
+
+To stop the PostgreSQL container:
+
+    docker compose down
+
+To stop the container and remove its volumes:
+
+    docker compose down -v
+
+> **Warning:** `docker compose down -v` removes the PostgreSQL volume and will delete the database data stored in it.
+
+## Environment Variables
+
+Database configuration is managed through environment variables.
+
+Create a `.env` file based on the provided `.env.example`:
+
+    cp .env.example .env
+
+Example `.env` configuration:
+
+    POSTGRES_DB=everafter
+    POSTGRES_USER=postgres
+    POSTGRES_PASSWORD=your_password
+    POSTGRES_PORT=5432
+
+The `.env` file should not be committed to the repository.
+
+Only `.env.example` should be versioned.
+
+## Running the Application
+
+The Spring Boot application runs directly on the host machine.
+
+First, make sure the PostgreSQL container is running:
+
+    docker compose up -d
+
+Then start the Spring Boot application.
 
 Using the Maven Wrapper:
 
@@ -100,6 +171,26 @@ Alternatively, if Maven is installed globally:
 
     mvn spring-boot:run
 
+Once the application starts, the API will be available at:
+
+    http://localhost:8080
+
+## Database Configuration
+
+The Spring Boot application connects to the PostgreSQL container through the host machine.
+
+Example configuration:
+
+    spring.datasource.url=jdbc:postgresql://localhost:5432/everafter
+    spring.datasource.username=postgres
+    spring.datasource.password=your_password
+
+The database connection settings must match the values configured in the `.env` file.
+
+Because PostgreSQL is exposed from the Docker container to the host machine, the Spring Boot application connects to it through:
+
+    localhost:5432
+
 ## Running Tests
 
 To execute the automated tests:
@@ -107,20 +198,6 @@ To execute the automated tests:
     mvn test
 
 The project uses **JUnit 5** and **Mockito** for unit testing.
-
-## Database
-
-The application can be configured to use either **H2** or **MySQL**, depending on the active Spring Boot configuration.
-
-Database settings can be configured through the application's configuration files or environment variables.
-
-Example:
-
-    spring.datasource.url=jdbc:mysql://localhost:3306/everafter
-    spring.datasource.username=root
-    spring.datasource.password=your_password
-
-For development and testing purposes, H2 can be used without requiring an external database server.
 
 ## API
 
@@ -146,7 +223,7 @@ The main goals include:
 - Working with relational databases
 - Improving Git and GitHub workflows
 - Exploring authentication and authorization
-- Containerizing the application with Docker
+- Using Docker for local infrastructure
 
 ## Roadmap
 
@@ -159,7 +236,57 @@ The main goals include:
 - [ ] Docker support
 - [ ] API documentation with Swagger/OpenAPI
 
-Visit the official Git documentation:
+## Git Basics
+
+Git is the version control system used to manage the project's source code and track changes throughout development.
+
+### Clone a Repository
+
+    git clone <repository-url>
+
+### Check the Current Status
+
+    git status
+
+### Create a New Branch
+
+    git switch -c feature/my-feature
+
+### Stage Changes
+
+Stage a specific file:
+
+    git add filename
+
+Stage all modified files:
+
+    git add .
+
+### Create a Commit
+
+    git commit -m "Add guest management"
+
+### Push Changes
+
+    git push origin feature/my-feature
+
+### Update the Local Repository
+
+    git pull
+
+### View Commit History
+
+    git log
+
+### View Branches
+
+    git branch
+
+### Switch Branches
+
+    git switch main
+
+For complete documentation, visit the official Git documentation:
 
 https://git-scm.com/doc
 
