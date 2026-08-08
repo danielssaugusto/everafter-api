@@ -9,3 +9,5 @@ public class EverAfterApplication {
         SpringApplication.run(EverAfterApplication.class, args);
     }
 }
+
+// http://localhost:8080/couple-member
