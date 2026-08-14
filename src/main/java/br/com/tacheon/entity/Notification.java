@@ -22,7 +22,13 @@ public class Notification {
     private LocalDateTime initDate;
     private LocalDateTime readDate;
 
-    public Notification(User user, NotificationType notificationType, String notificationTitle, String message, boolean read, LocalDateTime initDate, LocalDateTime readDate) {
+    public Notification(User user,
+                        NotificationType notificationType,
+                        String notificationTitle,
+                        String message,
+                        boolean read,
+                        LocalDateTime initDate,
+                        LocalDateTime readDate) {
         this.user = user;
         this.notificationType = notificationType;
         this.notificationTitle = notificationTitle;

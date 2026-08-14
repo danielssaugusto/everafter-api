@@ -22,7 +22,13 @@ public class Invite {
     private LocalDateTime acceptedDate;
     private LocalDateTime expiredDate;
 
-    public Invite(Wedding wedding, Family familyId, Long code, InviteStatus status, LocalDateTime sendDate, LocalDateTime acceptedDate, LocalDateTime expiredDate) {
+    public Invite(Wedding wedding,
+                  Family familyId,
+                  Long code,
+                  InviteStatus status,
+                  LocalDateTime sendDate,
+                  LocalDateTime acceptedDate,
+                  LocalDateTime expiredDate) {
         this.wedding = wedding;
         this.familyId = familyId;
         this.code = code;
