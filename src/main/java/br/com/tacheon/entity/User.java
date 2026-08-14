@@ -20,7 +20,14 @@ public class User {
     private Date updateData;
     private boolean active = true;
 
-    public User(String username, String email, String password, String phone, Date initData, Date updateData, boolean active) {
+    public User(
+            String username,
+            String email,
+            String password,
+            String phone,
+            Date initData,
+            Date updateData,
+            boolean active) {
         this.username = username;
         this.email = email;
         this.password = password;
