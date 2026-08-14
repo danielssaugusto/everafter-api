@@ -2,7 +2,10 @@ package br.com.tacheon.entity;
 
 import br.com.tacheon.enums.WeddingRole;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
@@ -11,7 +14,10 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class WeddingParticipation {
+    @Id
+    @GeneratedValue
     private UUID weddingRoleId;
     private User userId;
     private Wedding weddingId;

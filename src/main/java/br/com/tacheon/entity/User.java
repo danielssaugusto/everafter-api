@@ -1,7 +1,10 @@
 package br.com.tacheon.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
@@ -10,7 +13,10 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class User {
+    @Id
+    @GeneratedValue
     private UUID userId;
     private String username;
     private String email;
