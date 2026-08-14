@@ -1,4 +1,35 @@
 package br.com.tacheon.entity;
 
+import br.com.tacheon.enums.RSVPStatus;
+import jakarta.persistence.Entity;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+@Entity
+@Getter
+@Setter
 public class RSVP {
+    private UUID rsvpId;
+    private Guest guest;
+    private Invite invite;
+    private RSVPStatus status;
+    private LocalDateTime answerDate;
+    private LocalDate updateDate;
+
+    public RSVP(
+            Guest guest,
+            Invite invite,
+            RSVPStatus status,
+            LocalDateTime answerDate,
+            LocalDate updateDate) {
+        this.guest = guest;
+        this.invite = invite;
+        this.status = status;
+        this.answerDate = answerDate;
+        this.updateDate = updateDate;
+    }
 }

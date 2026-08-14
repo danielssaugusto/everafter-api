@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public class Guest {
     private UUID guestID;
-    private Family familyId;
+    private Family family;
     private String guestName;
     private String phone;
     private AgeClassification guestType;
@@ -15,13 +15,13 @@ public class Guest {
     private LocalDate updateDate;
 
     public Guest(
-            Family familyId,
+            Family family,
             String guestName,
             String phone,
             AgeClassification guestType,
             LocalDate initDate,
             LocalDate updateDate) {
-        this.familyId = familyId;
+        this.family = family;
         this.guestName = guestName;
         this.phone = phone;
         this.guestType = guestType;
