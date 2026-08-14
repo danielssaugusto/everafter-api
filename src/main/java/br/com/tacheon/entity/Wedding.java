@@ -1,4 +1,40 @@
 package br.com.tacheon.entity;
 
+import jakarta.persistence.Entity;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.UUID;
+
+@Entity
+@Getter
+@Setter
 public class Wedding {
+    private UUID eventId;
+    private String eventTitle;
+    private LocalDate eventDate;
+    private LocalTime eventSchedule;
+    private String eventVenue;
+    private LocalDate initDate;
+    private LocalDate updateDate;
+    private boolean active = true;
+
+    public Wedding(
+            String eventTitle,
+            LocalDate eventDate,
+            LocalTime eventSchedule,
+            String eventVenue,
+            LocalDate initDate,
+            LocalDate updateDate,
+            boolean active) {
+        this.eventTitle = eventTitle;
+        this.eventDate = eventDate;
+        this.eventSchedule = eventSchedule;
+        this.eventVenue = eventVenue;
+        this.initDate = initDate;
+        this.updateDate = updateDate;
+        this.active = active;
+    }
 }
