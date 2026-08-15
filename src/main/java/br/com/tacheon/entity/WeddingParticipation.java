@@ -19,20 +19,20 @@ public class WeddingParticipation {
     @Id
     @GeneratedValue
     private UUID weddingRoleId;
-    private User userId;
-    private Wedding weddingId;
+    private User user;
+    private Wedding wedding;
     private WeddingRole weddingRole;
     private LocalDate initDate;
     private boolean active = true;
 
     public WeddingParticipation(
-            User userId,
-            Wedding weddingId,
+            User user,
+            Wedding wedding,
             WeddingRole weddingRole,
             LocalDate initDate,
             boolean active) {
-        this.userId = userId;
-        this.weddingId = weddingId;
+        this.user = user;
+        this.wedding = wedding;
         this.weddingRole = weddingRole;
         this.initDate = initDate;
         this.active = active;
