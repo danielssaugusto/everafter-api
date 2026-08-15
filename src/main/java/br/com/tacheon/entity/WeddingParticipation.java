@@ -22,7 +22,7 @@ public class WeddingParticipation {
     private User user;
     private Wedding wedding;
     private WeddingRole weddingRole;
-    private LocalDate initDate;
+    private LocalDate initDate;: insert
     private boolean active = true;
 
     public WeddingParticipation(
