@@ -1,14 +1,14 @@
 package br.com.tacheon.entity;
 
 import br.com.tacheon.enums.WeddingRole;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -19,11 +19,21 @@ public class WeddingParticipation {
     @Id
     @GeneratedValue
     private UUID weddingRoleId;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "wedding_id")
     private Wedding wedding;
+
+
     private WeddingRole weddingRole;
-    private LocalDate initDate;: insert
+    private LocalDate initDate;
     private boolean active = true;
+
+
 
     public WeddingParticipation(
             User user,

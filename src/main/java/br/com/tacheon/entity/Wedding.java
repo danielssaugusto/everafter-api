@@ -3,6 +3,7 @@ package br.com.tacheon.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,6 +27,9 @@ public class Wedding {
     private LocalDate initDate;
     private LocalDate updateDate;
     private boolean active = true;
+
+    @OneToMany(mappedBy = "wedding")
+    private WeddingParticipation weddingParticipation;
 
     public Wedding(
             String eventTitle,

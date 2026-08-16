@@ -3,11 +3,14 @@ package br.com.tacheon.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -25,6 +28,9 @@ public class User {
     private LocalDate initDate;
     private LocalDate updateData;
     private boolean active = true;
+
+    @OneToMany(mappedBy = "user")
+    private List<WeddingParticipation> weddingParticipations = new ArrayList<>();
 
     public User(
             String username,
