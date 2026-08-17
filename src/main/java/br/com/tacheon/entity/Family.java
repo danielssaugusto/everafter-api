@@ -21,8 +21,11 @@ public class Family {
     @JoinColumn(name = "wedding_id")
     private Wedding wedding;
 
-
     private String familyName;
+
+    @OneToMany(mappedBy = "guest_id")
+    private Guest guest;
+
     private LocalDate initDate;
     private LocalDate updateDate;
 

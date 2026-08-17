@@ -34,6 +34,9 @@ public class Wedding {
     @OneToMany(mappedBy = "wedding")
     private Family family;
 
+    @OneToMany(mappedBy = "wedding")
+    private Invite invite;
+
     public Wedding(
             String eventTitle,
             LocalDate eventDate,

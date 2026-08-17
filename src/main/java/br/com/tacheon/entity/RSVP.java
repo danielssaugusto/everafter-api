@@ -4,6 +4,7 @@ import br.com.tacheon.enums.RSVPStatus;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,7 +21,10 @@ public class RSVP {
     @Id
     @GeneratedValue
     private UUID rsvpId;
+
+    @OneToOne(mappedBy = "guest_id")
     private Guest guest;
+
     private Invite invite;
     private RSVPStatus status;
     private LocalDateTime answerDate;
