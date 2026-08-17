@@ -27,7 +27,7 @@ public class Guest {
     private String phone;
     private AgeClassification guestType;
 
-    @OneToOne(mappedBy = "rsvp_id")
+    @OneToOne(mappedBy = "guest")
     private RSVP rsvp;
 
     private LocalDate initDate;

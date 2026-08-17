@@ -10,6 +10,8 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -29,10 +31,10 @@ public class Wedding {
     private boolean active = true;
 
     @OneToMany(mappedBy = "wedding")
-    private WeddingParticipation weddingParticipation;
+    private List<WeddingParticipation> weddingParticipation = new ArrayList<>();
 
     @OneToMany(mappedBy = "wedding")
-    private Family family;
+    private List<Family> family = new ArrayList<>();
 
     @OneToMany(mappedBy = "wedding")
     private Invite invite;

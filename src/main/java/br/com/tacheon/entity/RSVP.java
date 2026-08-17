@@ -1,10 +1,7 @@
 package br.com.tacheon.entity;
 
 import br.com.tacheon.enums.RSVPStatus;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,10 +19,14 @@ public class RSVP {
     @GeneratedValue
     private UUID rsvpId;
 
-    @OneToOne(mappedBy = "guest_id")
+    @OneToOne
+    @JoinColumn(name = "guest_id", unique = true)
     private Guest guest;
 
+    @ManyToOne
+    @JoinColumn(name = "invite_id")
     private Invite invite;
+
     private RSVPStatus status;
     private LocalDateTime answerDate;
     private LocalDate updateDate;
