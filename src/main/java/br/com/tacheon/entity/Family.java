@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -23,8 +25,11 @@ public class Family {
 
     private String familyName;
 
-    @OneToMany(mappedBy = "guest_id")
-    private Guest guest;
+    @OneToMany(mappedBy = "family")
+    private List<Guest> guest = new ArrayList<>();
+
+    @OneToOne(mappedBy = "family")
+    private Invite invite;
 
     private LocalDate initDate;
     private LocalDate updateDate;

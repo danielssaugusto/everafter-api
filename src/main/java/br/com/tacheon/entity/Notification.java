@@ -1,9 +1,7 @@
 package br.com.tacheon.entity;
 
 import br.com.tacheon.enums.NotificationType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,7 +18,11 @@ public class Notification {
     @Id
     @GeneratedValue
     private UUID notificationId;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
+
     private NotificationType notificationType;
     private String notificationTitle;
     private String message;

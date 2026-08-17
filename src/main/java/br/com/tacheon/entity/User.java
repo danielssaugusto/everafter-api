@@ -32,6 +32,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<WeddingParticipation> weddingParticipations = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user")
+    private List<Notification> notifications = new ArrayList<>();
+
     public User(
             String username,
             String email,

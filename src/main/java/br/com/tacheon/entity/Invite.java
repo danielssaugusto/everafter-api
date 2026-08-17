@@ -8,6 +8,8 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -23,10 +25,12 @@ public class Invite {
     @JoinColumn(name = "wedding_id")
     private Wedding wedding;
 
-    private Family familyId;
+    @OneToOne
+    @JoinColumn(name = "family_id", unique = true)
+    private Family family;
 
-    @OneToMany(mappedBy = "guest_id")
-    private Guest guest;
+    @OneToMany(mappedBy = "wedding")
+    private List<Guest> guests = new ArrayList<>();
 
     private Long code;
     private InviteStatus status;
@@ -35,14 +39,14 @@ public class Invite {
     private LocalDateTime expiredDate;
 
     public Invite(Wedding wedding,
-                  Family familyId,
+                  Family family,
                   Long code,
                   InviteStatus status,
                   LocalDateTime sendDate,
                   LocalDateTime acceptedDate,
                   LocalDateTime expiredDate) {
         this.wedding = wedding;
-        this.familyId = familyId;
+        this.family = family;
         this.code = code;
         this.status = status;
         this.sendDate = sendDate;
