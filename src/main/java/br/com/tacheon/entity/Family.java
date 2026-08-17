@@ -1,8 +1,6 @@
 package br.com.tacheon.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,17 +16,25 @@ public class Family {
     @Id
     @GeneratedValue
     private UUID familyId;
-    private Wedding weddingId;
+
+    @ManyToOne
+    @JoinColumn(name = "wedding_id")
+    private Wedding wedding;
+
     private String familyName;
+
+    @OneToMany(mappedBy = "guest_id")
+    private Guest guest;
+
     private LocalDate initDate;
     private LocalDate updateDate;
 
     public Family(
-            Wedding weddingId,
+            Wedding wedding,
             String familyName,
             LocalDate initDate,
             LocalDate updateDate) {
-        this.weddingId = weddingId;
+        this.wedding = wedding;
         this.familyName = familyName;
         this.initDate = initDate;
         this.updateDate = updateDate;

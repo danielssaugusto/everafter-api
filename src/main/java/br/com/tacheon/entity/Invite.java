@@ -1,9 +1,7 @@
 package br.com.tacheon.entity;
 
 import br.com.tacheon.enums.InviteStatus;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,8 +18,16 @@ public class Invite {
     @Id
     @GeneratedValue
     private UUID inviteId;
+
+    @ManyToOne
+    @JoinColumn(name = "wedding_id")
     private Wedding wedding;
+
     private Family familyId;
+
+    @OneToMany(mappedBy = "guest_id")
+    private Guest guest;
+
     private Long code;
     private InviteStatus status;
     private LocalDateTime sendDate;

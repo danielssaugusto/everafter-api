@@ -1,9 +1,7 @@
 package br.com.tacheon.entity;
 
 import br.com.tacheon.enums.AgeClassification;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,15 +14,28 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 public class Guest {
+
     @Id
     @GeneratedValue
     private UUID guestID;
+
+    @ManyToOne
+    @JoinColumn(name = "family_id")
     private Family family;
+
     private String guestName;
     private String phone;
     private AgeClassification guestType;
+
+    @OneToOne(mappedBy = "rsvp_id")
+    private RSVP rsvp;
+
     private LocalDate initDate;
     private LocalDate updateDate;
+
+    @ManyToOne
+    @JoinColumn(name = "invite_id")
+    private Invite invite;
 
     public Guest(
             Family family,
