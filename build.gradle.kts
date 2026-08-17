@@ -18,8 +18,12 @@ repositories {
     mavenCentral()
 }
 
+val testAgent = configurations.create("testAgent") {
+    isTransitive = false
+}
+
 dependencies {
-    // Spring
+    // Spring Boot
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
@@ -29,12 +33,16 @@ dependencies {
 
     // Testes
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-
-    testImplementation(platform("org.junit:junit-bom:6.0.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+    // ByteBuddy Agent (o verdadeiro agente utilizado pelo Mockito)
+    testAgent("net.bytebuddy:byte-buddy-agent:1.14.12")
 }
 
 tasks.test {
     useJUnitPlatform()
+    jvmArgs(
+        "-javaagent:${testAgent.singleFile}",
+        "-Xshare:off"
+    )
 }
