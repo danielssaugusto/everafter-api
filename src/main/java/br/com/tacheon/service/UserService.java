@@ -6,9 +6,11 @@ import br.com.tacheon.repository.UserRepository;
 public class UserService {
     UserRepository userRepository;
 
-    User registerUser(User user) {
-        userRepository.save(user);
-        return user;
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
+    public User registerUser(User user) {
+        return userRepository.save(user);
+    }
 }
