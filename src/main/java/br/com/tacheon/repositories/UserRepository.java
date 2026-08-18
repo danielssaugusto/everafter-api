@@ -1,6 +1,6 @@
-package br.com.tacheon.repository;
+package br.com.tacheon.repositories;
 
-import br.com.tacheon.entity.User;
+import br.com.tacheon.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

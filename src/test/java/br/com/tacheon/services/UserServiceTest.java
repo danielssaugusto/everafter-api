@@ -1,20 +1,17 @@
-package br.com.tacheon.service;
+package br.com.tacheon.services;
 
-import br.com.tacheon.entity.User;
-import br.com.tacheon.repository.UserRepository;
+import br.com.tacheon.entities.User;
+import br.com.tacheon.repositories.UserRepository;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.context.ActiveProfiles;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-import java.time.LocalDate;
-
-@ExtendWith(MockitoExtension.class)
+@ActiveProfiles("test")
 public class UserServiceTest {
 
     @Mock
@@ -27,7 +24,6 @@ public class UserServiceTest {
     void register_new_user_in_the_system() {
         // ARRANGE
         User userToSave = new User();
-
         when(userRepository.save(any(User.class))).thenReturn(userToSave);
 
         // ACT

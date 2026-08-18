@@ -1,4 +1,4 @@
-package br.com.tacheon.entity;
+package br.com.tacheon.entities;
 
 import br.com.tacheon.enums.WeddingRole;
 import jakarta.persistence.*;
@@ -7,8 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Entity
