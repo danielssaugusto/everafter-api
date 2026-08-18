@@ -67,4 +67,14 @@ public class UserService {
 
         return userRepository.save(user);
     }
+
+    public void deleteUser(UUID id, String password) {
+        User user = findUser(id);
+
+        if (!user.getPassword().equals(password)) {
+            throw new RuntimeException("Invalid password.");
+        }
+
+        userRepository.delete(user);
+    }
 }
