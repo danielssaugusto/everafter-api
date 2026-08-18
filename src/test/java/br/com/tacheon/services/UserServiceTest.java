@@ -1,7 +1,7 @@
-package br.com.tacheon.service;
+package br.com.tacheon.services;
 
-import br.com.tacheon.entity.User;
-import br.com.tacheon.repository.UserRepository;
+import br.com.tacheon.entities.User;
+import br.com.tacheon.repositories.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;

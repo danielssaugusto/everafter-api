@@ -1,4 +1,4 @@
-package br.com.tacheon.entity;
+package br.com.tacheon.entities;
 
 import br.com.tacheon.enums.AgeClassification;
 import jakarta.persistence.*;

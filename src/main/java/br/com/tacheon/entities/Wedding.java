@@ -1,4 +1,4 @@
-package br.com.tacheon.entity;
+package br.com.tacheon.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
