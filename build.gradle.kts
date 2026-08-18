@@ -35,6 +35,8 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
+    testImplementation("com.h2database:h2:1.3.148")
+
     // ByteBuddy Agent (o verdadeiro agente utilizado pelo Mockito)
     testAgent("net.bytebuddy:byte-buddy-agent:1.14.12")
 }
