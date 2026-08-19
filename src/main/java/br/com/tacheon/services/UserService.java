@@ -7,6 +7,7 @@ import br.com.tacheon.entities.Wedding;
 import br.com.tacheon.entities.WeddingParticipation;
 import br.com.tacheon.repositories.InviteRepository;
 import br.com.tacheon.repositories.UserRepository;
+import br.com.tacheon.repositories.WeddingParticipationRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -15,15 +16,15 @@ import java.util.UUID;
 public class UserService {
     private final UserRepository userRepository;
     private final InviteRepository inviteRepository;
-    private final WeddingParticipation weddingParticipation;
+    private final WeddingParticipationRepository weddingParticipationRepository;
 
     public UserService(
             UserRepository userRepository,
             InviteRepository inviteRepository,
-            WeddingParticipation weddingParticipation) {
+            WeddingParticipationRepository weddingParticipationRepository) {
         this.userRepository = userRepository;
         this.inviteRepository = inviteRepository;
-        this.weddingParticipation = weddingParticipation;
+        this.weddingParticipationRepository = weddingParticipationRepository;
     }
 
     public User registerUser(User user) {
@@ -107,6 +108,10 @@ public class UserService {
                 .orElseThrow(() -> new RuntimeException("Invite not found."));
 
         Wedding wedding = invite.getWedding();
+
+        if (weddingParticipationRepository.existsByUserAndWedding(user, wedding)) {
+            throw new RuntimeException("User already participates in this wedding.");
+        }
 
         WeddingParticipation weddingParticipation = new WeddingParticipation();
 
