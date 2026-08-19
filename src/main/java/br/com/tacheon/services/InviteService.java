@@ -20,11 +20,9 @@ public class InviteService {
         this.messageService = messageService;
     }
 
-    private final Invite findInvite(UUID id) {
-        Invite invite = inviteRepository.findById(id)
+    public Invite findInvite(UUID id) {
+        return inviteRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Invite not found."));
-
-        return invite;
     }
 
     public Invite createInvite(UUID id) {
@@ -41,9 +39,10 @@ public class InviteService {
         messageService.send(inviteMessage);
     }
 
-    // cancel invite
+    public void cancelInvite(UUID id) {
+        Invite invite = inviteRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Invite not found."));
 
-    // search invite
-
-
+        inviteRepository.delete(invite);
+    }
 }
