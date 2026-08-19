@@ -26,7 +26,6 @@ public class MessageService {
                         "This contact type is not supported yet."
                 );
             }
-
         }
     }
 }
