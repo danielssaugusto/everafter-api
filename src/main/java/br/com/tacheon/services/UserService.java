@@ -100,24 +100,4 @@ public class UserService {
 
         userRepository.delete(user);
     }
-
-    public WeddingParticipation acceptInvite(UUID userId, UUID inviteId) {
-        User user = findUser(userId);
-
-        Invite invite = inviteRepository.findById(inviteId)
-                .orElseThrow(() -> new RuntimeException("Invite not found."));
-
-        Wedding wedding = invite.getWedding();
-
-        if (weddingParticipationRepository.existsByUserAndWedding(user, wedding)) {
-            throw new RuntimeException("User already participates in this wedding.");
-        }
-
-        WeddingParticipation weddingParticipation = new WeddingParticipation();
-
-        weddingParticipation.setUser(user);
-        weddingParticipation.setWedding(wedding);
-
-        return weddingParticipationRepository.save(weddingParticipation);
-    }
 }
