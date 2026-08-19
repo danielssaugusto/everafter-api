@@ -7,6 +7,7 @@ import br.com.tacheon.entities.Wedding;
 import br.com.tacheon.entities.WeddingParticipation;
 import br.com.tacheon.repositories.InviteRepository;
 import br.com.tacheon.repositories.UserRepository;
+import br.com.tacheon.repositories.WeddingParticipationRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -15,15 +16,15 @@ import java.util.UUID;
 public class UserService {
     private final UserRepository userRepository;
     private final InviteRepository inviteRepository;
-    private final WeddingParticipation weddingParticipation;
+    private final WeddingParticipationRepository weddingParticipationRepository;
 
     public UserService(
             UserRepository userRepository,
             InviteRepository inviteRepository,
-            WeddingParticipation weddingParticipation) {
+            WeddingParticipationRepository weddingParticipationRepository) {
         this.userRepository = userRepository;
         this.inviteRepository = inviteRepository;
-        this.weddingParticipation = weddingParticipation;
+        this.weddingParticipationRepository = weddingParticipationRepository;
     }
 
     public User registerUser(User user) {
@@ -98,21 +99,5 @@ public class UserService {
         }
 
         userRepository.delete(user);
-    }
-
-    public WeddingParticipation acceptInvite(UUID userId, UUID inviteId) {
-        User user = findUser(userId);
-
-        Invite invite = inviteRepository.findById(inviteId)
-                .orElseThrow(() -> new RuntimeException("Invite not found."));
-
-        Wedding wedding = invite.getWedding();
-
-        WeddingParticipation weddingParticipation = new WeddingParticipation();
-
-        weddingParticipation.setUser(user);
-        weddingParticipation.setWedding(wedding);
-
-        return weddingParticipationRepository.save(weddingParticipation);
     }
 }
