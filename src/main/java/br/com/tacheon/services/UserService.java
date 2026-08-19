@@ -1,10 +1,8 @@
 package br.com.tacheon.services;
 
-import br.com.tacheon.DTOs.UserResponse;
-import br.com.tacheon.entities.Invite;
+import br.com.tacheon.DTOs.UserRequestDTO;
+import br.com.tacheon.DTOs.UserResponseDTO;
 import br.com.tacheon.entities.User;
-import br.com.tacheon.entities.Wedding;
-import br.com.tacheon.entities.WeddingParticipation;
 import br.com.tacheon.repositories.InviteRepository;
 import br.com.tacheon.repositories.UserRepository;
 import br.com.tacheon.repositories.WeddingParticipationRepository;
@@ -27,8 +25,22 @@ public class UserService {
         this.weddingParticipationRepository = weddingParticipationRepository;
     }
 
-    public User registerUser(User user) {
-        return userRepository.save(user);
+    public UserResponseDTO createUser(UserRequestDTO request) {
+        User user = new User();
+
+        user.setUsername(request.username());
+        user.setEmail(request.email());
+        user.setPhone(request.phone());
+        user.setPassword(request.password());
+
+        User savedUser = userRepository.save(user);
+
+        return new UserResponseDTO(
+                savedUser.getUserId(),
+                savedUser.getUsername(),
+                savedUser.getEmail(),
+                savedUser.getPhone()
+        );
     }
 
     public User loginUser(String email, String password) {
@@ -48,10 +60,10 @@ public class UserService {
         return user;
     }
 
-    public UserResponse displayUser(UUID id) {
+    public UserResponseDTO displayUser(UUID id) {
         User user = findUser(id);
 
-        return new UserResponse(
+        return new UserResponseDTO(
                 user.getUserId(),
                 user.getUsername(),
                 user.getEmail(),
