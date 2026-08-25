@@ -105,7 +105,7 @@ cp .env.example .env
 Open the `.env` file and configure the database credentials:
 
 ```env
-POSTGRES_DB=everafter
+POSTGRES_DB=your_db_name
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=your_password
 POSTGRES_PORT=5432
